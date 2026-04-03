@@ -1,0 +1,9 @@
+[wrap-file]
+directory = wqparallel-869c15b89a7d0ab896d78f2eaa16cca078dcc6e5
+source_url = https://github.com/weqeqq/wqparallel/archive/869c15b89a7d0ab896d78f2eaa16cca078dcc6e5.tar.gz
+source_filename = wqparallel-869c15b89a7d0ab896d78f2eaa16cca078dcc6e5.tar.gz
+source_hash = f9f79d9a6adf35ede91198c10d23d0a3fd0f98953fa4ad54b4719c7c84254da8
+source_fallback_url = https://codeload.github.com/weqeqq/wqparallel/tar.gz/869c15b89a7d0ab896d78f2eaa16cca078dcc6e5
+
+[provide]
+wqparallel = wqparallel_dep

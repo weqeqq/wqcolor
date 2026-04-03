@@ -1,0 +1,8 @@
+/build/
+
+/subprojects/packagecache/
+/subprojects/packagefiles/
+/subprojects/googletest-*/
+/subprojects/wqparallel-*/
+
+/result

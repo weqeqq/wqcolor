@@ -1,0 +1,116 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    name: ${{ matrix.job_name }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            simd: enabled
+            job_name: Linux / SIMD
+          - os: ubuntu-24.04
+            simd: disabled
+            job_name: Linux / Scalar
+          - os: macos-15
+            simd: enabled
+            job_name: macOS / SIMD
+          - os: macos-15
+            simd: disabled
+            job_name: macOS / Scalar
+          - os: windows-2022
+            simd: enabled
+            job_name: Windows / SIMD
+          - os: windows-2022
+            simd: disabled
+            job_name: Windows / Scalar
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      - name: Install Meson and Ninja
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install meson==1.10.1 ninja==1.13.2
+
+      - name: Install Linux SIMD dependencies
+        if: runner.os == 'Linux' && matrix.simd == 'enabled'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libhwy-dev pkg-config
+
+      - name: Install macOS SIMD dependencies
+        if: runner.os == 'macOS' && matrix.simd == 'enabled'
+        env:
+          HOMEBREW_NO_AUTO_UPDATE: "1"
+        run: brew install highway
+
+      - name: Install Windows SIMD dependencies
+        if: runner.os == 'Windows' && matrix.simd == 'enabled'
+        env:
+          VCPKG_DISABLE_METRICS: "1"
+        shell: pwsh
+        run: |
+          git clone --filter=blob:none https://github.com/microsoft/vcpkg.git vcpkg
+          Set-Location vcpkg
+          git checkout --detach e80346e570b767219f85dc95e3736853bfec3a70
+          & .\bootstrap-vcpkg.bat -disableMetrics
+          & .\vcpkg.exe install --clean-after-build highway:x64-windows
+
+      - name: Configure Meson on Linux and macOS
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          extra_args=()
+          if [[ "${{ runner.os }}" == "macOS" && "${{ matrix.simd }}" == "enabled" ]]; then
+            highway_prefix="$(brew --prefix highway)"
+            extra_args+=("--cmake-prefix-path=${highway_prefix}")
+            if [[ -d "${highway_prefix}/lib/pkgconfig" ]]; then
+              export PKG_CONFIG_PATH="${highway_prefix}/lib/pkgconfig${PKG_CONFIG_PATH:+:${PKG_CONFIG_PATH}}"
+            fi
+          fi
+
+          meson setup build \
+            --buildtype=debugoptimized \
+            -Dtests=enabled \
+            -Dsimd=${{ matrix.simd }} \
+            "${extra_args[@]}"
+
+      - name: Configure Meson on Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          if ('${{ matrix.simd }}' -eq 'enabled') {
+            meson setup build --vsenv --buildtype=debugoptimized -Dtests=enabled -Dsimd=enabled --cmake-prefix-path="$env:GITHUB_WORKSPACE\vcpkg\installed\x64-windows"
+          }
+          else {
+            meson setup build --vsenv --buildtype=debugoptimized -Dtests=enabled -Dsimd=disabled
+          }
+
+      - name: Compile
+        run: meson compile -C build
+
+      - name: Run tests
+        run: meson test -C build --print-errorlogs

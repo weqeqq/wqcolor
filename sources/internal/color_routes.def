@@ -1,0 +1,19 @@
+WQCOLOR_ROUTE(kRgb, kRgb, kIdentity, false)
+WQCOLOR_ROUTE(kRgb, kRgba, kRgbToRgba, true)
+WQCOLOR_ROUTE(kRgb, kGrayscale, kRgbToGrayscale, true)
+WQCOLOR_ROUTE(kRgb, kCmyk, kGeneric, false)
+
+WQCOLOR_ROUTE(kRgba, kRgb, kRgbaToRgb, true)
+WQCOLOR_ROUTE(kRgba, kRgba, kIdentity, false)
+WQCOLOR_ROUTE(kRgba, kGrayscale, kRgbaToGrayscale, true)
+WQCOLOR_ROUTE(kRgba, kCmyk, kGeneric, false)
+
+WQCOLOR_ROUTE(kGrayscale, kRgb, kGrayscaleToRgb, true)
+WQCOLOR_ROUTE(kGrayscale, kRgba, kGrayscaleToRgba, true)
+WQCOLOR_ROUTE(kGrayscale, kGrayscale, kIdentity, false)
+WQCOLOR_ROUTE(kGrayscale, kCmyk, kGeneric, true)
+
+WQCOLOR_ROUTE(kCmyk, kRgb, kGeneric, true)
+WQCOLOR_ROUTE(kCmyk, kRgba, kGeneric, true)
+WQCOLOR_ROUTE(kCmyk, kGrayscale, kGeneric, true)
+WQCOLOR_ROUTE(kCmyk, kCmyk, kIdentity, false)
