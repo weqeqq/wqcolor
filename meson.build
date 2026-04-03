@@ -2,7 +2,7 @@ project(
   'wqcolor',
   'cpp',
   version: '0.1.0',
-  default_options: ['cpp_std=c++23', 'warning_level=3'],
+  default_options: ['cpp_std=c++23,c++latest', 'warning_level=3'],
 )
 
 is_top_level = meson.is_subproject() == false
