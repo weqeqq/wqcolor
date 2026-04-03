@@ -29,11 +29,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1775220888,
-        "narHash": "sha256-HVsxkFqmRM6IBFY6tWRC1QZ+FLEDxHUI9DPoG56M5js=",
+        "lastModified": 1775245080,
+        "narHash": "sha256-nC/JBp5teUTC/O01IQMxd7UuvSgeO+HPxXVDftNTiZo=",
         "owner": "weqeqq",
         "repo": "wqparallel",
-        "rev": "869c15b89a7d0ab896d78f2eaa16cca078dcc6e5",
+        "rev": "a1528d22f9fb319b855e0ebe3d2527fc764217ef",
         "type": "github"
       },
       "original": {
