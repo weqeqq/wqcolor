@@ -114,4 +114,35 @@ HWY_INLINE void ConvertRgbChannelsToCmyk(TagU8 tag_u8, TagU16 tag_u16, V8 r_u8,
                         k_u8, tag_u8, out);
 }
 
+template <typename TagU8, typename TagU16, typename V8 = hn::VFromD<TagU8>>
+HWY_INLINE void ConvertCmykChannelsToRgb(TagU8 tag_u8, TagU16 tag_u16, V8 c_u8,
+                                         V8 m_u8, V8 y_u8, V8 k_u8, V8& r_u8,
+                                         V8& g_u8, V8& b_u8) {
+  const auto v255 = hn::Set(tag_u16, 255u);
+
+  const auto c_lo = hn::PromoteLowerTo(tag_u16, c_u8);
+  const auto m_lo = hn::PromoteLowerTo(tag_u16, m_u8);
+  const auto y_lo = hn::PromoteLowerTo(tag_u16, y_u8);
+  const auto k_lo = hn::PromoteLowerTo(tag_u16, k_u8);
+  const auto invk_lo = hn::Sub(v255, k_lo);
+
+  const auto c_hi = hn::PromoteUpperTo(tag_u16, c_u8);
+  const auto m_hi = hn::PromoteUpperTo(tag_u16, m_u8);
+  const auto y_hi = hn::PromoteUpperTo(tag_u16, y_u8);
+  const auto k_hi = hn::PromoteUpperTo(tag_u16, k_u8);
+  const auto invk_hi = hn::Sub(v255, k_hi);
+
+  const auto r_lo = Div255(tag_u16, hn::Mul(hn::Sub(v255, c_lo), invk_lo));
+  const auto g_lo = Div255(tag_u16, hn::Mul(hn::Sub(v255, m_lo), invk_lo));
+  const auto b_lo = Div255(tag_u16, hn::Mul(hn::Sub(v255, y_lo), invk_lo));
+
+  const auto r_hi = Div255(tag_u16, hn::Mul(hn::Sub(v255, c_hi), invk_hi));
+  const auto g_hi = Div255(tag_u16, hn::Mul(hn::Sub(v255, m_hi), invk_hi));
+  const auto b_hi = Div255(tag_u16, hn::Mul(hn::Sub(v255, y_hi), invk_hi));
+
+  r_u8 = hn::OrderedDemote2To(tag_u8, r_lo, r_hi);
+  g_u8 = hn::OrderedDemote2To(tag_u8, g_lo, g_hi);
+  b_u8 = hn::OrderedDemote2To(tag_u8, b_lo, b_hi);
+}
+
 #endif  // WQCOLOR_SIMD

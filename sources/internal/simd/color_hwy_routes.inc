@@ -141,35 +141,10 @@ void ConvertPixelColor(const std::uint8_t* HWY_RESTRICT in,
   auto k = hn::Undefined(tag_u8);
   hn::LoadInterleaved4(tag_u8, in, c, m, y, k);
 
-  const auto v255 = hn::Set(tag_u16, 255u);
-
-  auto process_half = [&](auto promote_fn) {
-    const auto ck = promote_fn(c);
-    const auto mk = promote_fn(m);
-    const auto yk = promote_fn(y);
-    const auto kk = promote_fn(k);
-    const auto invk = hn::Sub(v255, kk);
-
-    struct {
-      hn::VFromD<decltype(tag_u16)> r;
-      hn::VFromD<decltype(tag_u16)> g;
-      hn::VFromD<decltype(tag_u16)> b;
-    } rgb;
-
-    rgb.r = Div255(tag_u16, hn::Mul(hn::Sub(v255, ck), invk));
-    rgb.g = Div255(tag_u16, hn::Mul(hn::Sub(v255, mk), invk));
-    rgb.b = Div255(tag_u16, hn::Mul(hn::Sub(v255, yk), invk));
-    return rgb;
-  };
-
-  auto lo =
-      process_half([&](auto value) { return hn::PromoteLowerTo(tag_u16, value); });
-  auto hi =
-      process_half([&](auto value) { return hn::PromoteUpperTo(tag_u16, value); });
-
-  const auto r_u8 = hn::OrderedDemote2To(tag_u8, lo.r, hi.r);
-  const auto g_u8 = hn::OrderedDemote2To(tag_u8, lo.g, hi.g);
-  const auto b_u8 = hn::OrderedDemote2To(tag_u8, lo.b, hi.b);
+  auto r_u8 = hn::Undefined(tag_u8);
+  auto g_u8 = hn::Undefined(tag_u8);
+  auto b_u8 = hn::Undefined(tag_u8);
+  ConvertCmykChannelsToRgb(tag_u8, tag_u16, c, m, y, k, r_u8, g_u8, b_u8);
 
   if constexpr (Out == Format::kRgb) {
     hn::StoreInterleaved3(r_u8, g_u8, b_u8, tag_u8, out);
@@ -196,35 +171,10 @@ void ConvertPixelColor(const std::uint8_t* HWY_RESTRICT in,
   auto k = hn::Undefined(tag_u8);
   hn::LoadInterleaved4(tag_u8, in, c, m, y, k);
 
-  const auto v255 = hn::Set(tag_u16, 255u);
-
-  auto process_half = [&](auto promote_fn) {
-    const auto ck = promote_fn(c);
-    const auto mk = promote_fn(m);
-    const auto yk = promote_fn(y);
-    const auto kk = promote_fn(k);
-    const auto invk = hn::Sub(v255, kk);
-
-    struct {
-      hn::VFromD<decltype(tag_u16)> r;
-      hn::VFromD<decltype(tag_u16)> g;
-      hn::VFromD<decltype(tag_u16)> b;
-    } rgb;
-
-    rgb.r = Div255(tag_u16, hn::Mul(hn::Sub(v255, ck), invk));
-    rgb.g = Div255(tag_u16, hn::Mul(hn::Sub(v255, mk), invk));
-    rgb.b = Div255(tag_u16, hn::Mul(hn::Sub(v255, yk), invk));
-    return rgb;
-  };
-
-  auto lo =
-      process_half([&](auto value) { return hn::PromoteLowerTo(tag_u16, value); });
-  auto hi =
-      process_half([&](auto value) { return hn::PromoteUpperTo(tag_u16, value); });
-
-  const auto r_u8 = hn::OrderedDemote2To(tag_u8, lo.r, hi.r);
-  const auto g_u8 = hn::OrderedDemote2To(tag_u8, lo.g, hi.g);
-  const auto b_u8 = hn::OrderedDemote2To(tag_u8, lo.b, hi.b);
+  auto r_u8 = hn::Undefined(tag_u8);
+  auto g_u8 = hn::Undefined(tag_u8);
+  auto b_u8 = hn::Undefined(tag_u8);
+  ConvertCmykChannelsToRgb(tag_u8, tag_u16, c, m, y, k, r_u8, g_u8, b_u8);
 
   ConvertRgbChannelsToGrayscale<Std>(tag_u8, tag_u16, r_u8, g_u8, b_u8, coeff_r,
                                      coeff_g, coeff_b, out);
