@@ -1,6 +1,7 @@
 #pragma once
 
 #include <weqeqq/color/config.h>
+#include <weqeqq/color/export.h>
 #include <weqeqq/parallel.h>
 
 #include <cstddef>
@@ -20,7 +21,7 @@ namespace weqeqq::color {
  * The message is decorated with source location (`file:line`) captured at
  * construction time.
  */
-struct Error : std::runtime_error {
+struct WQCOLOR_EXPORT Error : std::runtime_error {
   Error(std::string_view message,
         std::source_location location = std::source_location::current())
       : std::runtime_error(std::format("[{}:{}] {}", location.file_name(),
@@ -163,11 +164,12 @@ inline std::size_t RequiredOutputSize(std::span<const std::uint8_t> input,
  * it returns without writing.
  * \note The exception surface follows `noexcept(!kDebug)`.
  */
-void Convert(std::span<const std::uint8_t> input,
-             std::span<std::uint8_t> output, Format input_color,
-             Format output_color, Standard standard = Standard::kBt709,
-             parallel::ExecutionPolicy execution =
-                 parallel::Execution::kSequential) noexcept(!kDebug);
+WQCOLOR_EXPORT void Convert(
+    std::span<const std::uint8_t> input, std::span<std::uint8_t> output,
+    Format input_color, Format output_color,
+    Standard standard = Standard::kBt709,
+    parallel::ExecutionPolicy execution =
+        parallel::Execution::kSequential) noexcept(!kDebug);
 
 /**
  * \brief Convenience overload that allocates and returns output bytes.
