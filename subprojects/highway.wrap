@@ -1,0 +1,8 @@
+[wrap-file]
+directory = highway-a43090982bc0941b264725daa539a93c6e04c0e6
+source_url = https://github.com/google/highway/archive/a43090982bc0941b264725daa539a93c6e04c0e6.tar.gz
+source_filename = highway-a43090982bc0941b264725daa539a93c6e04c0e6.tar.gz
+source_hash = b66305d0ff2f6e5a3c49beb91b18114eec3ed1cb1e1047ee14fba384f5a042ba
+
+[provide]
+libhwy = hwy_dep

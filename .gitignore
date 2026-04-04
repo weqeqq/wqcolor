@@ -3,6 +3,7 @@
 /subprojects/packagecache/
 /subprojects/packagefiles/
 /subprojects/googletest-*/
+/subprojects/highway-*/
 /subprojects/wqparallel-*/
 
 /result

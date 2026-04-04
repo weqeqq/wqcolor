@@ -23,7 +23,17 @@ dependencies = [wqparallel_dep]
 compile_flags = []
 
 if opt_simd
-  hwy_dep = dependency('libhwy', required: true)
+  hwy_dep = dependency(
+    'libhwy',
+    fallback: ['highway', 'hwy_dep'],
+    default_options: [
+      'contrib=disabled',
+      'examples=disabled',
+      'test_standalone=true',
+      'tests=disabled',
+    ],
+    required: true,
+  )
   dependencies += [hwy_dep]
 endif
 

@@ -25,6 +25,7 @@ The public API lives in `headers/weqeqq/color.h` (`#include <weqeqq/color.h>`).
 - C++23 compiler
 - Meson + Ninja
 - `wqparallel` (found via the system or downloaded through the Meson wrap fallback)
+- `Highway` / `libhwy` when `-Dsimd=enabled` (found via the system or downloaded through the Meson wrap fallback)
 
 ### Configure and compile
 

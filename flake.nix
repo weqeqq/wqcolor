@@ -38,6 +38,7 @@
               ./sources
               ./subprojects/.wraplock
               ./subprojects/gtest.wrap
+              ./subprojects/highway.wrap
               ./subprojects/wqparallel.wrap
               ./tests
             ];

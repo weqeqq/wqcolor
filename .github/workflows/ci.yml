@@ -67,18 +67,6 @@ jobs:
           HOMEBREW_NO_AUTO_UPDATE: "1"
         run: brew install highway
 
-      - name: Install Windows SIMD dependencies
-        if: runner.os == 'Windows' && matrix.simd == 'enabled'
-        env:
-          VCPKG_DISABLE_METRICS: "1"
-        shell: pwsh
-        run: |
-          git clone --filter=blob:none https://github.com/microsoft/vcpkg.git vcpkg
-          Set-Location vcpkg
-          git checkout --detach e80346e570b767219f85dc95e3736853bfec3a70
-          & .\bootstrap-vcpkg.bat -disableMetrics
-          & .\vcpkg.exe install --clean-after-build highway:x64-windows
-
       - name: Configure Meson on Linux and macOS
         if: runner.os != 'Windows'
         shell: bash
@@ -101,13 +89,7 @@ jobs:
       - name: Configure Meson on Windows
         if: runner.os == 'Windows'
         shell: pwsh
-        run: |
-          if ('${{ matrix.simd }}' -eq 'enabled') {
-            meson setup build --vsenv --buildtype=debugoptimized -Dtests=enabled -Dsimd=enabled --cmake-prefix-path="$env:GITHUB_WORKSPACE\vcpkg\installed\x64-windows"
-          }
-          else {
-            meson setup build --vsenv --buildtype=debugoptimized -Dtests=enabled -Dsimd=disabled
-          }
+        run: meson setup build --vsenv --buildtype=debugoptimized -Dtests=enabled -Dsimd=${{ matrix.simd }}
 
       - name: Compile
         run: meson compile -C build
