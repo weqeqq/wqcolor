@@ -65,6 +65,7 @@ wqcolor_dep = declare_dependency(
   link_with: wqcolor_lib,
   include_directories: wqcolor_public_includes,
   compile_args: wqcolor_public_args,
+  dependencies: [wqparallel_dep],
 )
 
 if opt_install
@@ -77,6 +78,7 @@ if opt_install
     name: 'wqcolor',
     description: 'A high-performance color manipulation library with SIMD support',
     extra_cflags: wqcolor_public_args,
+    requires: ['wqparallel'],
     subdirs: 'weqeqq',
     version: meson.project_version(),
   )
