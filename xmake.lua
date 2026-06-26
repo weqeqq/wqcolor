@@ -9,6 +9,7 @@ set_languages("c++23")
 
 add_repositories("weqeqq.repo https://github.com/weqeqq/xmake-repo.git")
 add_requires("weqeqq.parallel")
+add_requires("weqeqq.test 0.3.6")
 
 option("enable-simd")
 set_default(false)

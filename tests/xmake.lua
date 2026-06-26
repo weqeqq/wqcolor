@@ -1,22 +1,13 @@
-target("module_check")
+target("tests")
 set_kind("binary")
 set_default(false)
 set_policy("build.c++.modules", true)
 
-add_files("module_check.cc")
+add_files("reference.cppm")
+add_files("*.cpp")
 
 add_deps("weqeqq.color")
 add_packages("weqeqq.parallel")
-
-add_tests("default")
-
-target("simd_check")
-set_kind("binary")
-set_default(false)
-
-add_files("simd_check.cc")
-
-add_deps("weqeqq.color.simd")
-add_packages("weqeqq.parallel")
+add_packages("weqeqq.test", { components = { "core", "main" } })
 
 add_tests("default")

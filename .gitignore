@@ -3,7 +3,7 @@
 .direnv
 .xmake
 .envrc
-compile_commands
+compile_commands.json
 
 build
 result
