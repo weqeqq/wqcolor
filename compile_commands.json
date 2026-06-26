@@ -1,0 +1,16 @@
+[
+{
+  "directory": "/home/weqeq/projects/cpp/wqcolor",
+  "arguments": ["/nix/store/8x93px5ggj0fparh565d49p3w1wn7g8j-clang-wrapper-22.1.6/bin/clang++", "-c", "-Qunused-arguments", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++23", "-Isimd/sources", "-Isimd/headers", "-DWQCOLOR_STATIC_DEFINE", "-DNDEBUG", "-fPIC", "-o", "../wqpng/build/.packages/w/weqeqq.color/latest/cache/build_adcd94ec/.objs/weqeqq.color.simd/linux/x86_64/release/simd/sources/color.cpp.o", "simd/sources/color.cpp"],
+  "file": "simd/sources/color.cpp"
+},
+{
+  "directory": "/home/weqeq/projects/cpp/wqcolor",
+  "arguments": ["/nix/store/8x93px5ggj0fparh565d49p3w1wn7g8j-clang-wrapper-22.1.6/bin/clang++", "-c", "-Qunused-arguments", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++23", "-Isimd/headers", "-DNDEBUG", "-fPIC", "-o", "../wqpng/build/.packages/w/weqeqq.color/latest/cache/build_adcd94ec/.objs/simd_check/linux/x86_64/release/tests/simd_check.cc.o", "tests/simd_check.cc"],
+  "file": "tests/simd_check.cc"
+},
+{
+  "directory": "/home/weqeq/projects/cpp/wqcolor",
+  "arguments": ["/nix/store/8x93px5ggj0fparh565d49p3w1wn7g8j-clang-wrapper-22.1.6/bin/clang++", "-c", "-Qunused-arguments", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++23", "-Isimd/headers", "-DNDEBUG", "-fmodule-file=weqeqq.color=../wqpng/build/.packages/w/weqeqq.color/latest/cache/build_adcd94ec/.gens/weqeqq.color/linux/x86_64/release/rules/bmi/cache/interfaces/dc34aa0814fc0341/weqeqq.color.pcm", "-fmodule-file=weqeqq.parallel=../wqpng/build/.packages/w/weqeqq.color/latest/cache/build_adcd94ec/.gens/weqeqq.color.simd/linux/x86_64/release/rules/bmi/cache/interfaces/3d41f595c856eede/weqeqq.parallel.pcm", "-fmodule-file=weqeqq.parallel:execution=../wqpng/build/.packages/w/weqeqq.color/latest/cache/build_adcd94ec/.gens/weqeqq.color.simd/linux/x86_64/release/rules/bmi/cache/interfaces/d19f2d3a6c326910/weqeqq.parallel_PARTITION_execution.pcm", "-fmodule-file=weqeqq.parallel:for_each=../wqpng/build/.packages/w/weqeqq.color/latest/cache/build_adcd94ec/.gens/weqeqq.color.simd/linux/x86_64/release/rules/bmi/cache/interfaces/9e8472c379cad3bc/weqeqq.parallel_PARTITION_for_each.pcm", "-fmodule-file=weqeqq.parallel:thread_pool=../wqpng/build/.packages/w/weqeqq.color/latest/cache/build_adcd94ec/.gens/weqeqq.color.simd/linux/x86_64/release/rules/bmi/cache/interfaces/6bda64f3068e1593/weqeqq.parallel_PARTITION_thread_pool.pcm", "-fPIC", "-o", "../wqpng/build/.packages/w/weqeqq.color/latest/cache/build_adcd94ec/.objs/module_check/linux/x86_64/release/tests/module_check.cc.o", "tests/module_check.cc"],
+  "file": "tests/module_check.cc"
+}]

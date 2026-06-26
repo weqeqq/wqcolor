@@ -1,9 +1,10 @@
-/build/
 
-/subprojects/packagecache/
-/subprojects/packagefiles/
-/subprojects/googletest-*/
-/subprojects/highway-*/
-/subprojects/wqparallel-*/
+.cache
+.direnv
+.xmake
+.envrc
+compile_commands
 
-/result
+build
+result
+

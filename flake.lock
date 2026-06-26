@@ -2,15 +2,15 @@
   "nodes": {
     "nixpkgs": {
       "locked": {
-        "lastModified": 1775036866,
-        "narHash": "sha256-ZojAnPuCdy657PbTq5V0Y+AHKhZAIwSIT2cb8UgAz/U=",
-        "owner": "NixOS",
+        "lastModified": 1780243769,
+        "narHash": "sha256-x5UQuRsH3MqI0U9afaXSNqzTPSeZlRLvFAav2Ux1pNw=",
+        "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "6201e203d09599479a3b3450ed24fa81537ebc4e",
+        "rev": "331800de5053fcebacf6813adb5db9c9dca22a0c",
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
+        "owner": "nixos",
         "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
@@ -18,28 +18,7 @@
     },
     "root": {
       "inputs": {
-        "nixpkgs": "nixpkgs",
-        "wqparallel": "wqparallel"
-      }
-    },
-    "wqparallel": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1775245080,
-        "narHash": "sha256-nC/JBp5teUTC/O01IQMxd7UuvSgeO+HPxXVDftNTiZo=",
-        "owner": "weqeqq",
-        "repo": "wqparallel",
-        "rev": "a1528d22f9fb319b855e0ebe3d2527fc764217ef",
-        "type": "github"
-      },
-      "original": {
-        "owner": "weqeqq",
-        "repo": "wqparallel",
-        "type": "github"
+        "nixpkgs": "nixpkgs"
       }
     }
   },
