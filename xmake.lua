@@ -1,5 +1,5 @@
 set_project("weqeqq.color")
-set_version("0.1.0")
+set_version("0.1.1")
 
 add_rules("mode.release", "mode.debug")
 add_rules("plugin.compile_commands.autoupdate")
